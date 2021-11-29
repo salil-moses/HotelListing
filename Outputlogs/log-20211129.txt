@@ -1,0 +1,47 @@
+2021-11-29 15:08:26.038 +05:30 [INF] Application is Starting
+2021-11-29 15:08:26.883 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2021-11-29 15:08:26.889 +05:30 [INF] Hosting environment: Development
+2021-11-29 15:08:26.891 +05:30 [INF] Content root path: E:\.NetCoreUdemy\HotelListing
+2021-11-29 15:08:26.904 +05:30 [INF] Request starting HTTP/2 GET https://localhost:44362/swagger - -
+2021-11-29 15:08:26.972 +05:30 [INF] Request starting HTTP/2 GET https://localhost:44362/swagger/index.html - -
+2021-11-29 15:08:26.974 +05:30 [INF] Request finished HTTP/2 GET https://localhost:44362/swagger - - - 301 - - 71.1995ms
+2021-11-29 15:08:27.025 +05:30 [INF] Request finished HTTP/2 GET https://localhost:44362/swagger/index.html - - - 200 - text/html;charset=utf-8 52.8134ms
+2021-11-29 15:08:27.039 +05:30 [INF] Request starting HTTP/2 GET https://localhost:44362/swagger/swagger-ui.css - -
+2021-11-29 15:08:27.039 +05:30 [INF] Request starting HTTP/2 GET https://localhost:44362/swagger/swagger-ui-bundle.js - -
+2021-11-29 15:08:27.039 +05:30 [INF] Request starting HTTP/2 GET https://localhost:44362/swagger/swagger-ui-standalone-preset.js - -
+2021-11-29 15:08:27.080 +05:30 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2021-11-29 15:08:27.080 +05:30 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2021-11-29 15:08:27.080 +05:30 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2021-11-29 15:08:27.082 +05:30 [INF] Request finished HTTP/2 GET https://localhost:44362/swagger/swagger-ui.css - - - 200 142933 text/css 42.5835ms
+2021-11-29 15:08:27.084 +05:30 [INF] Request finished HTTP/2 GET https://localhost:44362/swagger/swagger-ui-standalone-preset.js - - - 200 311804 application/javascript 44.6493ms
+2021-11-29 15:08:27.091 +05:30 [INF] Request finished HTTP/2 GET https://localhost:44362/swagger/swagger-ui-bundle.js - - - 200 986342 application/javascript 52.1707ms
+2021-11-29 15:08:27.163 +05:30 [INF] Request starting HTTP/2 GET https://localhost:44362/swagger/favicon-16x16.png - -
+2021-11-29 15:08:27.164 +05:30 [INF] Sending file. Request path: '/favicon-16x16.png'. Physical path: 'N/A'
+2021-11-29 15:08:27.164 +05:30 [INF] Request finished HTTP/2 GET https://localhost:44362/swagger/favicon-16x16.png - - - 200 665 image/png 0.8118ms
+2021-11-29 15:08:27.185 +05:30 [INF] Request starting HTTP/2 GET https://localhost:44362/swagger/v1/swagger.json - -
+2021-11-29 15:08:27.226 +05:30 [INF] Request finished HTTP/2 GET https://localhost:44362/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 40.9557ms
+2021-11-29 15:23:43.828 +05:30 [INF] Application is Starting
+2021-11-29 15:23:44.461 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2021-11-29 15:23:44.462 +05:30 [INF] Hosting environment: Development
+2021-11-29 15:23:44.463 +05:30 [INF] Content root path: E:\.NetCoreUdemy\HotelListing
+2021-11-29 15:23:44.474 +05:30 [INF] Request starting HTTP/2 GET https://localhost:44362/swagger/index.html - -
+2021-11-29 15:23:44.554 +05:30 [INF] Request finished HTTP/2 GET https://localhost:44362/swagger/index.html - - - 200 - text/html;charset=utf-8 80.1284ms
+2021-11-29 15:23:44.569 +05:30 [INF] Request starting HTTP/2 GET https://localhost:44362/swagger/swagger-ui.css - -
+2021-11-29 15:23:44.569 +05:30 [INF] Request starting HTTP/2 GET https://localhost:44362/swagger/swagger-ui-standalone-preset.js - -
+2021-11-29 15:23:44.589 +05:30 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2021-11-29 15:23:44.589 +05:30 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2021-11-29 15:23:44.590 +05:30 [INF] Request finished HTTP/2 GET https://localhost:44362/swagger/swagger-ui.css - - - 0 142933 text/css 20.2903ms
+2021-11-29 15:23:44.590 +05:30 [INF] Request finished HTTP/2 GET https://localhost:44362/swagger/swagger-ui-standalone-preset.js - - - 0 311804 application/javascript 20.2903ms
+2021-11-29 15:23:44.649 +05:30 [INF] Request starting HTTP/2 GET https://localhost:44362/swagger/favicon-16x16.png - -
+2021-11-29 15:23:44.650 +05:30 [INF] Sending file. Request path: '/favicon-16x16.png'. Physical path: 'N/A'
+2021-11-29 15:23:44.650 +05:30 [INF] Request finished HTTP/2 GET https://localhost:44362/swagger/favicon-16x16.png - - - 0 665 image/png 1.2626ms
+2021-11-29 15:23:44.672 +05:30 [INF] Request starting HTTP/2 GET https://localhost:44362/swagger/v1/swagger.json - -
+2021-11-29 15:23:44.710 +05:30 [INF] Request finished HTTP/2 GET https://localhost:44362/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 38.1556ms
+2021-11-29 15:23:55.677 +05:30 [INF] Request starting HTTP/2 GET https://localhost:44362/WeatherForecast - -
+2021-11-29 15:23:55.692 +05:30 [INF] Executing endpoint 'HotelListing.Controllers.WeatherForecastController.Get (HotelListing)'
+2021-11-29 15:23:55.702 +05:30 [INF] Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[HotelListing.WeatherForecast] Get() on controller HotelListing.Controllers.WeatherForecastController (HotelListing).
+2021-11-29 15:23:55.703 +05:30 [INF] Weather Forecast Endpoint Get Accessed
+2021-11-29 15:23:55.705 +05:30 [INF] Executing ObjectResult, writing value of type 'HotelListing.WeatherForecast[]'.
+2021-11-29 15:23:55.714 +05:30 [INF] Executed action HotelListing.Controllers.WeatherForecastController.Get (HotelListing) in 9.871ms
+2021-11-29 15:23:55.715 +05:30 [INF] Executed endpoint 'HotelListing.Controllers.WeatherForecastController.Get (HotelListing)'
+2021-11-29 15:23:55.715 +05:30 [INF] Request finished HTTP/2 GET https://localhost:44362/WeatherForecast - - - 200 - application/json;+charset=utf-8 38.3838ms

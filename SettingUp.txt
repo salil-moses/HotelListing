@@ -1,0 +1,12 @@
+After creating basic Project
+
+Installing Serilog
+**********************
+
+from nuget install serilog.aspnetcore
+
+make changes in program.cs for loggiing
+
+
+Setup the Cors policy in Startup.cs
+
