@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# ignore the output logs
+/Outputlogs/
+
+# ignore the setup text file
+SettingUp.txt

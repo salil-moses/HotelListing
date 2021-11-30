@@ -10,3 +10,34 @@ make changes in program.cs for loggiing
 
 Setup the Cors policy in Startup.cs
 
+
+
+Add the Data Folder
+
+In Data Folder, add the data model classes and the dbcontext file
+
+Install  Microsoft.EntityFrameworkCore from nuget (make sure right 5.12 for .net 5  6.0 for .net 6)
+Also install Microsoft.EntityFrameworkCore.SqlServer (check for proper .net version)
+Also install Microsoft.EntityFrameworkCore.Tools (check for proper .net version)
+
+Add the conn string in appsettings.json
+
+complete the data modelling by adding the fk relations etc.
+
+use the package manager console to complete the initial DB migration
+
+PM> Add-Migration DatabaseCreated
+This will create the migrations folder with the first migration
+PM> UPDATE-DATABASE  (this commits the data migration)
+
+
+Add the IRepository, Repository Folders
+Setup the Generics and UOW register/implementation
+
+Add the DTOS to the Models folder
+
+Install via nuget AutoMapper extensions for ASP.NET Core
+
+Create folder Configurations folder and add the MapperInitializer.cs file in it for Automapper
+
+Then add in the startup.cs file
