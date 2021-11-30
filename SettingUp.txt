@@ -41,3 +41,10 @@ Install via nuget AutoMapper extensions for ASP.NET Core
 Create folder Configurations folder and add the MapperInitializer.cs file in it for Automapper
 
 Then add in the startup.cs file
+
+
+Add the controller - empty web api controller
+
+If there is a json circular reference problem
+install pkg  Microsoft.AspNetCore.Mvc.NewtonsoftJson (choose proper core version)
+make changes to the services.AddControllers in startup.cs
