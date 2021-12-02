@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HotelListing.Configurations.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +8,10 @@ using System.Threading.Tasks;
 
 namespace HotelListing.Data
 {
-    public class DatabaseContext: DbContext
+    // public class DatabaseContext: DbContext
+    // public class DatabaseContext : IdentityDbContext  // this makes use of the built in IdentityUser class
+    // Below we are using the customized ApiUser class
+    public class DatabaseContext : IdentityDbContext<ApiUser>
     {
         public DatabaseContext(DbContextOptions options) : base(options)
         {
@@ -19,6 +24,15 @@ namespace HotelListing.Data
         /*For seeding some data*/
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            /*Add this line after installing the identity core package*/
+            base.OnModelCreating(builder);
+            
+            builder.ApplyConfiguration(new CountryConfiguration());
+            builder.ApplyConfiguration(new HotelConfiguration());
+            builder.ApplyConfiguration(new RoleConfiguration());
+
+            /*This is shifted out*/
+            /*
             builder.Entity<Country>().HasData(
                 new Country
                 {
@@ -38,7 +52,7 @@ namespace HotelListing.Data
                     Name = "Cayman Islands",
                     ShortName = "CI"
                 }
-            );
+            );            
 
             builder.Entity<Hotel>().HasData(
                 new Hotel
@@ -66,6 +80,7 @@ namespace HotelListing.Data
                     CountryId = 3
                 }
             );
+            */
         }
 
     }

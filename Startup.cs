@@ -2,9 +2,11 @@ using HotelListing.Configurations;
 using HotelListing.Data;
 using HotelListing.IRepository;
 using HotelListing.Repository;
+using HotelListing.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,10 +34,22 @@ namespace HotelListing
         public void ConfigureServices(IServiceCollection services)
         {
 
+            // services.AddControllers().AddNewtonsoftJson(options =>
+            // options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddDbContext<DatabaseContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("sqlConnection"))
             );
             // services.AddControllers();
+
+            //IdentityUser identity
+            services.AddAuthentication();
+            services.ConfigureIdentity();  // from the class extension
+            //var jwtSettings = Configuration["Jwt:Issuer"];            
+            // var configSections = Configuration.GetChildren();
+            // var keyL = Environment.GetEnvironmentVariables();
+            // var key = Environment.GetEnvironmentVariable("USERDOMAIN");
+            services.ConfigureJWT(Configuration);
             
             services.AddCors(o => {
                 o.AddPolicy("AllowAll", builder =>
@@ -46,15 +60,55 @@ namespace HotelListing
 
             services.AddAutoMapper(typeof(MapperInitializer));
             services.AddTransient<IUnitOfWork, UnitOfWork>(); /*Create new instance every time*/
+            services.AddScoped<IAuthManager, AuthManager>();
 
+            
+            // services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options => 
+             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+                       
+            /*
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HotelListing", Version = "v1" });
             });
+            */
+            AddSwaggerDoc(services);
+        }
 
-            // services.AddControllers();
-            services.AddControllers().AddNewtonsoftJson(options => 
-            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+        private void AddSwaggerDoc(IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme { 
+                    Description = @"JWT Authorization Header using the Bearer Scheme.
+                    Enter 'Bearer'[space] and your token in the text input below.
+                    Example: 'Bearer abert343'",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement() {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "OAuth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header
+                        },
+                        new List<string>()
+                    }
+                });
+
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "HotelListing", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +128,7 @@ namespace HotelListing
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

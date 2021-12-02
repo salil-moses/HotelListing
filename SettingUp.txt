@@ -48,3 +48,64 @@ Add the controller - empty web api controller
 If there is a json circular reference problem
 install pkg  Microsoft.AspNetCore.Mvc.NewtonsoftJson (choose proper core version)
 make changes to the services.AddControllers in startup.cs
+
+
+Authentication Start
+Install User Identity Core
+
+install Microsoft.AspNetCore.Identity.EntityFrameworkCore;  choose proper core version
+
+make changes to DatabaseContext.cs
+make changes to Startup.cs  (this change will be made in the ServiceExtensions class instead, so startup.cs is not very large)
+
+Add the APIUser class in the Data Folder (This extends the built in IdentityUser class to add more fields to the identity DB table)
+make changes to DatabaseContext.cs to use this new class
+
+Add ServiceExtensions class in the main solution folder 
+make changes to Startup.cs to use the extension methods
+
+In PM console add the DB migration for identity
+PM> Add-Migration  AddedIdentity
+PM> UPDATE-DATABASE
+
+
+Add the AccountController in the Controllers folder
+
+create the UserDTO class in the Models folder
+update the mapper initializer
+
+edit the userDTO to add the loginUserDTO
+
+
+add roles
+add the config (seed data) in Configuration/Entites/Roleconfigurations
+PM> Add-Migration AddedUserRoles
+PM> UPDATE-DATABASE
+
+update UserDTO to include the roles
+also update account controller
+
+
+JWT Authentication
+make changes to the appsettings.json
+Store the key as an Environment variable
+Cmd prompt as Admin 
+> setx HL_API_KEY "Just!29Some&Secret#Key)(Valuehere!!" /M   (/M is system variable)
+
+install Microsoft.AspNetCore.Authentication.JwtBearer   (choose core version)
+
+add new Folder Services
+add interface IAuthManager and class AuthManager in this folder	(this is the service that builds the token with options)
+Register these in the Startup.cs
+
+update the accounts controller with IAuthManager
+
+add jwt to swagger docs
+edit the startup.cs
+
+
+
+
+
+
+
