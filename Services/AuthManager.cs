@@ -72,7 +72,7 @@ namespace HotelListing.Services
         private SigningCredentials GetSigningCredentials()
         {
             var key = Environment.GetEnvironmentVariable("HL_API_KEY");
-            key = "2deae819-e114-45a8-b4da-0664c52ca372"; // hardcoded for testing
+            // key = "2deae819-e114-45a8-b4da-0664c52ca372"; // hardcoded for testing
             var secret = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }

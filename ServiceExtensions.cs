@@ -26,7 +26,7 @@ namespace HotelListing
             // var jwtSettings = configuration.GetSection("Jwt");
             var iss = configuration["Jwt:Issuer"];
             var key = Environment.GetEnvironmentVariable("HL_API_KEY");
-            key = "2deae819-e114-45a8-b4da-0664c52ca372"; // hardcoded for testing
+            // key = "2deae819-e114-45a8-b4da-0664c52ca372"; // hardcoded for testing
 
             services.AddAuthentication(options => {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
