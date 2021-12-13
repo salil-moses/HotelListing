@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using HotelListing.Configurations;
 using HotelListing.Data;
 using HotelListing.IRepository;
@@ -42,6 +43,14 @@ namespace HotelListing
             );
             // services.AddControllers();
 
+            services.AddMemoryCache(); // for rate limiting
+
+            services.ConfigureRateLimiting();  // for rate limiting
+            services.AddHttpContextAccessor();  // for rate limiting
+
+            //services.AddResponseCaching(); // shifted to the extension class - check line below
+            services.ConfigureHttpCacheHeaders();
+
             //IdentityUser identity
             services.AddAuthentication();
             services.ConfigureIdentity();  // from the class extension
@@ -64,9 +73,17 @@ namespace HotelListing
 
             
             // services.AddControllers();
-            services.AddControllers().AddNewtonsoftJson(options => 
+            services.AddControllers(config =>
+            {
+                // create a custom caching profile that may be applied to the controllers
+                config.CacheProfiles.Add("120SecondDuration", new CacheProfile { 
+                    Duration = 120
+                });
+            }).AddNewtonsoftJson(options => 
              options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-                       
+
+
+            services.ConfigureAPIVersioning();  // check serviceextensions for implementation
             /*
             services.AddSwaggerGen(c =>
             {
@@ -122,12 +139,19 @@ namespace HotelListing
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HotelListing v1"));
             }
 
+            app.ConfigureExceptionHandler(); // Our custom global error handler
+
             app.UseHttpsRedirection();
 
             app.UseCors("AllowAll");
 
-            app.UseRouting();
+            app.UseResponseCaching();  // for api caching
+            app.UseHttpCacheHeaders(); // for api caching 
 
+            app.UseIpRateLimiting();   // for api rate limiting -- requires library AspNetCoreRateLimit
+
+            app.UseRouting();
+            
             app.UseAuthentication();
             app.UseAuthorization();
 

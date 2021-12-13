@@ -35,7 +35,7 @@ namespace HotelListing.Services
 
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
         {
-            var jwtSettings = _configuration.GetSection("Jwt");
+            // var jwtSettings = _configuration.GetSection("Jwt");
 
             // var tkExpiration = DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings.GetSection("Lifetime").Value));
             var tkExpiration = DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["Jwt:Lifetime"]));

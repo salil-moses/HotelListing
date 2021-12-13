@@ -104,6 +104,28 @@ add jwt to swagger docs
 edit the startup.cs
 
 
+Add pagination
+Requires nuget pkg X.PagedList.Mvc.core
+
+Add Golbal Error Catching
+
+
+Add API Versioning
+	Nuget --  Microsoft.AspNetCore.Mvc.Versioning
+
+
+Add API Caching
+To help in validation of Cached Data - Add library Marvin.Cache.Headers
+Update ServiceExtensions.cs
+
+
+Add Rate Limiting and Throttling
+install AspNetCoreRateLimit
+NOTE : Throttling is applicable on endpoints where there is no caching/ hitting a cached endpoint is not a major issue
+
+UOW is updated to include strong Typing
+	update the IGenericRepository, GenericRepository
+	Also controllers have to be updated as they make use of the UOW
 
 
 

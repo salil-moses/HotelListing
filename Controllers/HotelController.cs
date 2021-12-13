@@ -5,6 +5,7 @@ using HotelListing.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,7 @@ namespace HotelListing.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]        
         public async Task<IActionResult> GetHotel(int id)
         {
+            /*
             try
             {
                 var hotel = await _unitOfWork.Hotels.Get(q => q.Id == id, new List<string> { "Country" });
@@ -62,10 +64,17 @@ namespace HotelListing.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error fetching data for {nameof(GetHotel)}");
-                // throw;
+                _logger.LogError(ex, $"Error fetching data for {nameof(GetHotel)}");                
                 return StatusCode(500, "Internal Server Error. Please Try Again Later");
             }
+            */
+            // After implementing the Global Error Handling try / catch is not necessary
+            
+            //var hotel = await _unitOfWork.Hotels.Get(q => q.Id == id, new List<string> { "Country" });
+            // above code replaced below with strongly typed UOW implementation
+            var hotel = await _unitOfWork.Hotels.Get(q => q.Id == id, includes: q => q.Include(x => x.Country));
+            var result = _mapper.Map<HotelDTO>(hotel); // map countries to DTO with automapper                
+            return Ok(result);
         }
 
         [Authorize(Roles = "Administrator")]
@@ -162,7 +171,7 @@ namespace HotelListing.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteHotel)}");
+                _logger.LogError(ex, $"Invalid DELETE attempt in {nameof(DeleteHotel)}");
                 return StatusCode(500, "Internal Server Error. Please Try Again Later");
             }
         }

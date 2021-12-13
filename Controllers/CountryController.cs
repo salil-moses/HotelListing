@@ -2,9 +2,11 @@
 using HotelListing.Data;
 using HotelListing.IRepository;
 using HotelListing.Models;
+using Marvin.Cache.Headers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -29,15 +31,22 @@ namespace HotelListing.Controllers
         }
 
         [HttpGet]
+        // [ResponseCache(Duration = 60)]
+        // [ResponseCache(CacheProfileName = "120SecondsDuration")]
+        // After global cache settings are done with Marvin below lines will override the global settings
+        [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 60)]
+        [HttpCacheValidation(MustRevalidate = false)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetCountries()
+        // public async Task<IActionResult> GetCountries() -> updated below to include
+        // the query params for pagination 
+        public async Task<IActionResult> GetCountries([FromQuery] RequestParams requestParams)
         {
             try
             {
                 // This gets countries with hotels
                 // var countries = await _unitOfWork.Countries.GetAll(null, null, new List<string> { "Hotels" });
-                var countries = await _unitOfWork.Countries.GetAll();
+                var countries = await _unitOfWork.Countries.GetPagedList(requestParams);
                 var results = _mapper.Map<IList<CountryDTO>>(countries); // map countries to DTO with automapper
                 // return Ok(countries);
                 return Ok(results);
@@ -51,13 +60,16 @@ namespace HotelListing.Controllers
         }
 
         [HttpGet("{id:int}", Name = "GetCountry")]
+        [ResponseCache(CacheProfileName = "120SecondsDuration")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCountry(int id)
         {
             try
             {
-                var country = await _unitOfWork.Countries.Get(q => q.Id == id, new List<string> { "Hotels" });
+                // var country = await _unitOfWork.Countries.Get(q => q.Id == id, new List<string> { "Hotels" });
+                // above code replaced below with strongly typed UOW implementation
+                var country = await _unitOfWork.Countries.Get(q => q.Id == id, includes: q => q.Include(x => x.Hotels));
                 var result = _mapper.Map<CountryDTO>(country); // map countries to DTO with automapper
                 // return Ok(countries);
                 return Ok(result);
@@ -162,7 +174,7 @@ namespace HotelListing.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteCountry)}");
+                _logger.LogError(ex, $"Invalid DELETE attempt in {nameof(DeleteCountry)}");
                 return StatusCode(500, "Internal Server Error. Please Try Again Later");
             }
         }
